@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
 gem 'sinatra'
 gem 'shotgun'
-gem 'rest-client'
+gem 'firebase'
+gem 'dotenv'
+gem 'nestful'
