@@ -3,6 +3,7 @@ require 'json'
 require 'firebase'
 require 'nestful'
 require 'dotenv'
+require 'stathat'
 require_relative 'lib/iamchucknorris.rb'
 
 enable :sessions
@@ -16,7 +17,7 @@ get '/' do
 	create_user unless get_user
 	@joke = JSON.load(Nestful.get('http://api.icndb.com/jokes/random?exclude=[explicit,nerdy]').body)["value"]["joke"]
 	@mixup_ad = Nestful.get("http://serve.mixup.hapnic.com/#{ENV['MXIT_APP_NAME']}").body
-	session[:joke] = @joke
+	StatHat::API.ez_post_count('iamchucknorris - jokes requested', 'emile@silvis.co.za', 1)
 	erb :joke
 end
 
