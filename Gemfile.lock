@@ -15,6 +15,8 @@ GEM
     rack (1.5.2)
     rack-protection (1.3.2)
       rack
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     shotgun (0.9)
       rack (>= 1.0)
     sinatra (1.3.5)
@@ -33,6 +35,7 @@ DEPENDENCIES
   dotenv
   firebase
   nestful
+  rest-client
   shotgun
   sinatra
   stathat
