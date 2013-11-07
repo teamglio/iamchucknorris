@@ -12,10 +12,10 @@ class RandomJokeBroadcast
 		Firebase.base_uri = "https://glio-mxit-users.firebaseio.com/#{ENV['MXIT_APP_NAME']}/"
 		users = JSON.load(Firebase.get('').response.body).keys
 		joke = JSON.load(Nestful.get('http://api.icndb.com/jokes/random?exclude=[explicit,nerdy]').body)["value"]["joke"]
-		
+
 		users.each_slice(500) do |users_slice|
 			begin
-			MxitAPI.send_message(users_slice.join(','), '*Chuck of the day*: ' + joke)
+			MxitAPI.send_message(users_slice.join(','), '*Chuck of the day*:' + joke)
 			rescue
 				next
 			end

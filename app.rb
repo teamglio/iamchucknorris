@@ -14,12 +14,16 @@ configure do
 end
 
 get '/' do
-	create_user unless get_user
-	track_login	
-	@joke = JSON.load(Nestful.get('http://api.icndb.com/jokes/random?exclude=[explicit,nerdy]').body)["value"]["joke"]
-	@mixup_ad = Nestful.get("http://serve.mixup.hapnic.com/#{ENV['MXIT_APP_NAME']}").body
-	StatHat::API.ez_post_count('iamchucknorris - jokes requested', 'emile@silvis.co.za', 1)
-	erb :joke
+	begin
+		create_user unless get_user
+		track_login	
+		@joke = JSON.load(Nestful.get('http://api.icndb.com/jokes/random?exclude=[explicit,nerdy]').body)["value"]["joke"]
+		@mixup_ad = Nestful.get("http://serve.mixup.hapnic.com/#{ENV['MXIT_APP_NAME']}").body
+		StatHat::API.ez_post_count('iamchucknorris - jokes requested', 'emile@silvis.co.za', 1)
+		erb :joke
+	rescue
+		erb "Oops, something went wrong. <a href='/'>Try again</a> later."
+	end
 end
 
 helpers do
